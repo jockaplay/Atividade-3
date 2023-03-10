@@ -26,17 +26,19 @@ export default function App() {
         <View style={styles.input}><TextInput onChangeText={setLogin} value={login} id='login' placeholder='Digite seu login'/></View>
         <Text style={styles.label}>Senha:</Text>
         <View style={styles.input}><TextInput onChangeText={setPass} value={pass} secureTextEntry={visiblePass} placeholder='Digite sua senha'/></View>
-        <Pressable onPress={() => {(visiblePass == true) ? setVisible(false) : setVisible(true)}}><Text style={styles.label2}>Mostrar senha</Text></Pressable>
+        <Pressable onPress={() => { visiblePass ? setVisible(false) : setVisible(true) }}><Text style={styles.label2}>Mostrar senha</Text></Pressable>
         <TouchableOpacity onPress={() => {
-          schema.isValid({
-            username: login,
-            password: pass,
-          }).then((isValid) => {
-            setErro(!isValid)
-          })
-        }} 
-        style={styles.botao}><Text style={{textAlign: 'center'}}>Login</Text></TouchableOpacity>
+            schema.isValid({
+              username: login,
+              password: pass,
+            }).then((retorno) => {
+              setErro(!retorno)
+            })
+          }} 
+          style={styles.botao}><Text style={{textAlign: 'center'}}>Login</Text>
+        </TouchableOpacity>
       </View>
+
       <Modal animationType='fade' transparent visible={passError}><View style={{flex: 1, backgroundColor: '#0000005f'}}></View></Modal>
       <Modal animationType='slide' transparent visible={passError}>
         <View style={styles.modalView}>
